@@ -3,4 +3,7 @@ module.exports = (app) => {
 
     //create a new note
     app.post('/notes', notes.create);
+
+    //find a specific note
+    app.get('/notes/:noteId', notes.findOne);
 }
