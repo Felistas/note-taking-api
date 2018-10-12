@@ -6,4 +6,7 @@ module.exports = (app) => {
 
     //find a specific note
     app.get('/notes/:noteId', notes.findOne);
+
+    //find all notes
+    app.get('/notes', notes.findAll);
 }

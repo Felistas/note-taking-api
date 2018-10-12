@@ -35,7 +35,7 @@ exports.findOne = (req, res) => {
                 message:"Note with Id" + req.params.noteId + "note found"
             });
         }
-        res.send(note);
+        res.status(200).send(note);
     
     }).catch(err => {
         if(err.kind === 'ObjectId'){
@@ -48,3 +48,15 @@ exports.findOne = (req, res) => {
         });
     });
 };
+
+//retrieve all notes
+exports.findAll = (req, res)=>{
+    Note.find()
+    .then(notes=>{
+        res.send(notes);
+    }).catch(err=>{
+        res.status(500).send({
+            message:err.message || "Some error occured during data processing"
+        })
+    })
+}
