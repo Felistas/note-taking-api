@@ -91,3 +91,22 @@ exports.update = (req, res)=>{
     })
 
 }
+
+//delete a note
+exports.delete = (req, res)=>{
+    Note.findByIdAndRemove(req.params.noteId)
+    .then(note =>{
+        if(!note){
+            res.status(404).send({
+                message:"Note with that id does not exist"
+            })
+        }
+        res.send({
+            message:"Note deleted successfully"
+        })
+    }).catch(err=>{
+        return res.status(500).send({
+            message:"Could not delete the specified note"
+        })
+    })
+}
