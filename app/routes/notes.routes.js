@@ -9,4 +9,7 @@ module.exports = (app) => {
 
     //find all notes
     app.get('/notes', notes.findAll);
+
+    //update a specific note
+    app.put('/notes/:noteId', notes.update);
 }

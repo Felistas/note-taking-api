@@ -60,3 +60,34 @@ exports.findAll = (req, res)=>{
         })
     })
 }
+
+//update a specific note
+exports.update = (req, res)=>{
+    if(!req.body.content){
+        res.status(400).send({
+            message: "Content cannot be empty"
+        })
+    }
+    Note.findByIdAndUpdate(req.params.noteId, {
+        title: req.body.title,
+        content: req.body.content
+    }, {new:true})
+    .then(note => {
+        if(!note){
+            return res.status(404).send({
+                message:"Requested note not found"
+            })
+        }
+        res.send(note);
+    }).catch(err =>{
+        if(err.kind === 'ObjectId'){
+            return res.status(404).send({
+                message: "Note with requested Id not found"
+            });
+        }
+        return res.status(500).send({
+            message:"Error updating note"
+        })
+    })
+
+}
